@@ -1,10 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { MatButtonModule,
          MatInputModule,
          MatCardModule,
          MatToolbarModule,
-         MatExpansionModule } from '@angular/material';
+         MatExpansionModule,
+         MatSelectModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { MovieItemComponent } from './movie/movie-item/movie-item.component';
@@ -14,6 +16,7 @@ import { TvSeriesListComponent } from './tv-series/tv-series-list/tv-series-list
 import { TvSeriesItemComponent } from './tv-series/tv-series-item/tv-series-item.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HeaderComponent } from './header/header.component';
+import { MovieItemCreateComponent } from './movie/movie-item-create/movie-item-create.component';
 
 
 @NgModule({
@@ -24,16 +27,19 @@ import { HeaderComponent } from './header/header.component';
     MovieListComponent,
     TvSeriesItemComponent,
     TvSeriesListComponent,
-    HeaderComponent
+    HeaderComponent,
+    MovieItemCreateComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    FormsModule,
     MatButtonModule,
     MatInputModule,
     MatCardModule,
     MatToolbarModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]
