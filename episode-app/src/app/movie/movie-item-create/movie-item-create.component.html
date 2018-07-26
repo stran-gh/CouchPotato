@@ -1,0 +1,27 @@
+<h2 class="mat-h2"> Create A Watch Item </h2>
+
+<p>
+  <mat-form-field>
+      <input matInput type="text" placeholder="Title" [(ngModel)]="enteredTitle"/>
+  </mat-form-field>
+</p>
+
+<p>
+  <mat-form-field>
+      <input matInput type="text" placeholder="Description" [(ngModel)]="enteredDescription"/>
+  </mat-form-field>
+</p>
+
+<p>
+  <mat-form-field>
+    <mat-select placeholder="Type" [(ngModel)]="itemType">
+      <mat-option value="movie">Movie</mat-option>
+      <mat-option value="tv_show"> TV Series </mat-option>
+      <mat-option value="other">Other</mat-option>
+    </mat-select>
+  </mat-form-field>
+</p>
+
+<div>
+  <button mat-raised-button type="submit" onclick="onAddToList()"> Add to List </button>
+</div>
