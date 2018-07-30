@@ -15,11 +15,11 @@ export class ListService {
     return this.moviesUpdated.asObservable();
   }
 
-  addMovie(title: string, description: string) {
+  addMovie(title: string, description: string, type: string) {
     const movie: Movie = {
       title: title,
       description: description,
-      // type: type
+      type: type
     };
     console.log(movie);
     this.movies.push(movie);

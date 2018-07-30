@@ -25,6 +25,10 @@
   <mat-form-field>
     <mat-select
       placeholder="Type"
+      ngModel
+      required
+      #type="ngModel"
+      name="type"
     >
       <mat-option value="movie">Movie</mat-option>
       <mat-option value="tv_show"> TV Series </mat-option>

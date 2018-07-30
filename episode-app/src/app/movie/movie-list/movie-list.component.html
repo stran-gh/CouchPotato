@@ -6,6 +6,9 @@
     <mat-panel-description>
       {{ movie.description }}
     </mat-panel-description>
+    <mat-panel-description>
+        {{ movie.type }}
+      </mat-panel-description>
   </mat-expansion-panel>
 </mat-accordion>
 <p class="info-text mat-body-1" *ngIf="movies.length <= 0"> No movies added yet!</p>
