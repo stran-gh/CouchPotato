@@ -1,4 +1,7 @@
 import { Component, OnInit, EventEmitter } from '@angular/core';
+import { Movie } from '../movie.model';
+import { NgForm } from '@angular/forms';
+import { ListService } from '../list.service';
 
 @Component({
   selector: 'app-movie-item-create',
@@ -12,17 +15,18 @@ export class MovieItemCreateComponent implements OnInit {
   itemType = '';
   itemCreated = new EventEmitter();
 
-  constructor() { }
+  constructor(public listService: ListService) { }
 
   ngOnInit() {
   }
 
-  onAddList() {
-    const movie = {
-      title: this.enteredTitle,
-      description: this.enteredDescription,
-      type: this.itemType
-    };
-    // this.itemCreated.emit(movie);
+  onAddToList(form: NgForm ) {
+    if (form.invalid) {
+      return;
+    }
+    console.log(form.value.title);
+    console.log(form.value.description);
+    this.listService.addMovie(form.value.title, form.value.description);
+    form.resetForm();
   }
 }

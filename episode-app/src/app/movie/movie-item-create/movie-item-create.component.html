@@ -1,27 +1,37 @@
 <h2 class="mat-h2"> Create A Watch Item </h2>
-
-<p>
+<form (submit)="onAddToList(postForm)" #postForm="ngForm">
   <mat-form-field>
-      <input matInput type="text" placeholder="Title" [(ngModel)]="enteredTitle"/>
+      <input
+        matInput
+        type="text"
+        name="title"
+        placeholder="Title"
+        ngModel
+        required
+        #title="ngModel">
+      <mat-error *ngIf="title.invalid">Please enter a movie title.</mat-error>
   </mat-form-field>
-</p>
-
-<p>
   <mat-form-field>
-      <input matInput type="text" placeholder="Description" [(ngModel)]="enteredDescription"/>
+      <input
+        matInput
+        type="text"
+        name="description"
+        placeholder="Description"
+        ngModel
+        required
+        #description="ngModel">
+      <mat-error *ngIf="description.invalid">Please enter a movie description.</mat-error>
   </mat-form-field>
-</p>
-
-<p>
   <mat-form-field>
-    <mat-select placeholder="Type" [(ngModel)]="itemType">
+    <mat-select
+      placeholder="Type"
+    >
       <mat-option value="movie">Movie</mat-option>
       <mat-option value="tv_show"> TV Series </mat-option>
       <mat-option value="other">Other</mat-option>
     </mat-select>
   </mat-form-field>
-</p>
-
-<div>
-  <button mat-raised-button type="submit" onclick="onAddToList()"> Add to List </button>
-</div>
+  <button
+    mat-raised-button
+    type="submit"> Add to List </button>
+</form>
