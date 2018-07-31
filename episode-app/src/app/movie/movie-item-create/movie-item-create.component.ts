@@ -24,8 +24,6 @@ export class MovieItemCreateComponent implements OnInit {
     if (form.invalid) {
       return;
     }
-    console.log(form.value.title);
-    console.log(form.value.description);
     this.listService.addMovie(form.value.title, form.value.description, form.value.type);
     form.resetForm();
   }

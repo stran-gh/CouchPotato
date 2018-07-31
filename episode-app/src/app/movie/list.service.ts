@@ -21,9 +21,7 @@ export class ListService {
       description: description,
       type: type
     };
-    console.log(movie);
     this.movies.push(movie);
-    console.log(this.movies);
     this.moviesUpdated.next([...this.movies]);
   }
 }
