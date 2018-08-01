@@ -17,7 +17,7 @@ export class MovieListComponent implements OnInit, OnDestroy {
   constructor(public listService: ListService) { }
 
   ngOnInit() {
-    this.movies = this.listService.getMovies();
+    this.listService.getMovies();
     this.listSub = this.listService.getMovieUpdateListener()
       .subscribe((movies: Movie[]) => {
         this.movies = movies;

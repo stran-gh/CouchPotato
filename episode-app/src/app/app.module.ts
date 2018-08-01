@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 import { MatButtonModule,
          MatInputModule,
          MatCardModule,
@@ -38,7 +39,8 @@ import { MovieItemCreateComponent } from './movie/movie-item-create/movie-item-c
     MatCardModule,
     MatToolbarModule,
     MatExpansionModule,
-    MatSelectModule
+    MatSelectModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
