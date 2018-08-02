@@ -28,7 +28,11 @@ export class ListService {
       description: description,
       type: type
     };
-    this.movies.push(movie);
-    this.moviesUpdated.next([...this.movies]);
+    this.http.post<{ message: string }>('http://localhost:3000/api/movies', movie)
+      .subscribe((responseData) => {
+        console.log(responseData.message);
+        this.movies.push(movie);
+        this.moviesUpdated.next([...this.movies]);
+      });
   }
 }

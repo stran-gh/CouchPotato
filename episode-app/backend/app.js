@@ -1,6 +1,10 @@
 const express = require('express');
+const bodyParser = require('body-parser');
 
 const app = express();
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -15,7 +19,15 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use('/api/movies', (req, res, next) => {
+app.post('/api/movies', (req, res, next) => {
+  const movie = req.body;
+  console.log(movie);
+  res.status(201).json({
+    message: 'Movie added successfully'
+  });
+});
+
+app.get('/api/movies', (req, res, next) => {
   const movies = [
     {
       title: "Harry Potter",
