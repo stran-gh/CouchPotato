@@ -1,7 +1,20 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
+
+const Movie = require('./models/movie');
 
 const app = express();
+
+const connectionString = "mongodb+srv://steve:qhuJ2okumAuGfgzw@cluster0-nmedl.mongodb.net/test?retryWrites=true";
+
+mongoose.connect(connectionString, { useNewUrlParser: true})
+  .then(() => {
+    console.log('Connected to the database');
+  })
+  .catch(() => {
+    console.log('Connection to database failed.');
+  });
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -20,7 +33,10 @@ app.use((req, res, next) => {
 });
 
 app.post('/api/movies', (req, res, next) => {
-  const movie = req.body;
+  const movie = new Movie({
+    title: req.body.title,
+    description: req.body.description
+  });
   console.log(movie);
   res.status(201).json({
     message: 'Movie added successfully'
