@@ -6,7 +6,7 @@ const Movie = require('./models/movie');
 
 const app = express();
 
-const connectionString = "mongodb+srv://steve:qhuJ2okumAuGfgzw@cluster0-nmedl.mongodb.net/test?retryWrites=true";
+const connectionString = "mongodb+srv://steve:qhuJ2okumAuGfgzw@cluster0-nmedl.mongodb.net/node-angular?retryWrites=true";
 
 mongoose.connect(connectionString, { useNewUrlParser: true})
   .then(() => {
@@ -37,29 +37,20 @@ app.post('/api/movies', (req, res, next) => {
     title: req.body.title,
     description: req.body.description
   });
-  console.log(movie);
+  movie.save();
   res.status(201).json({
     message: 'Movie added successfully'
   });
 });
 
 app.get('/api/movies', (req, res, next) => {
-  const movies = [
-    {
-      title: "Harry Potter",
-      description: "A boy finds out he is a wizard",
-      type: "movie"
-    },
-    {
-      title: "Harry Potter 2",
-      description: "A boy finds out he is a good wizard",
-      type: "movie"
-    }
-  ];
-  res.status(200).json({
-    message: 'Posts fetched successfully',
-    movies: movies
-  });
+  Movie.find()
+    .then(documents => {
+      res.status(200).json({
+        message: 'Posts fetched successfully',
+        movies: documents
+      });
+    });
 });
 
 
