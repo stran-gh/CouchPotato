@@ -24,6 +24,10 @@ export class MovieListComponent implements OnInit, OnDestroy {
       });
   }
 
+  onDelete(movieId: string) {
+    this.listService.deleteMovie(movieId);
+  }
+
   ngOnDestroy() {
     this.listSub.unsubscribe();
   }

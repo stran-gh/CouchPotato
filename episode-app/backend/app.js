@@ -35,7 +35,8 @@ app.use((req, res, next) => {
 app.post('/api/movies', (req, res, next) => {
   const movie = new Movie({
     title: req.body.title,
-    description: req.body.description
+    description: req.body.description,
+    type: req.body.type
   });
   movie.save();
   res.status(201).json({
@@ -52,6 +53,11 @@ app.get('/api/movies', (req, res, next) => {
       });
     });
 });
+
+app.delete('/api/posts/:id', (req, res, next) => {
+  console.log(req.params.id);
+  res.status(200).json({message: 'Post deleted!'});
+})
 
 
 
