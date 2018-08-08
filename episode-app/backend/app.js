@@ -6,7 +6,7 @@ const Movie = require('./models/movie');
 
 const app = express();
 
-const connectionString = "mongodb+srv://steve:qhuJ2okumAuGfgzw@cluster0-nmedl.mongodb.net/node-angular?retryWrites=true";
+const connectionString = "mongodb+srv://steve:EMDrKmbPBRrXZdoa@cluster0-nmedl.mongodb.net/node-angular?retryWrites=true";
 
 mongoose.connect(connectionString, { useNewUrlParser: true})
   .then(() => {
@@ -38,9 +38,11 @@ app.post('/api/movies', (req, res, next) => {
     description: req.body.description,
     type: req.body.type
   });
-  movie.save();
-  res.status(201).json({
-    message: 'Movie added successfully'
+  movie.save().then((createdMovie) => {
+    res.status(201).json({
+      message: 'Movie added successfully',
+      movieId: createdMovie._id
+    });
   });
 });
 
@@ -54,9 +56,11 @@ app.get('/api/movies', (req, res, next) => {
     });
 });
 
-app.delete('/api/posts/:id', (req, res, next) => {
-  console.log(req.params.id);
-  res.status(200).json({message: 'Post deleted!'});
+app.delete('/api/movies/:id', (req, res, next) => {
+  Movie.deleteOne({_id: req.params.id }).then(result => {
+    console.log(result);
+    res.status(200).json({message: "Movie deleted"});
+  })
 })
 
 

@@ -28,7 +28,6 @@ export class ListService {
       }))
       .subscribe(transformedMovies => {
         this.movies = transformedMovies;
-        console.log(transformedMovies.id);
         this.moviesUpdated.next([...this.movies]);
       });
   }
@@ -45,19 +44,23 @@ export class ListService {
       type: type
     };
     this.http
-      .post<{ message: string }>('http://localhost:3000/api/movies/', movie)
+      .post<{ message: string, movieId: string }>('http://localhost:3000/api/movies/', movie)
       .subscribe(responseData => {
-        console.log(responseData.message);
+        const id = responseData.movieId;
+        movie.id = id;
         this.movies.push(movie);
         this.moviesUpdated.next([...this.movies]);
       });
   }
 
   deleteMovie(movieId: string) {
+    console.log(movieId);
     this.http
       .delete('http://localhost:3000/api/movies/' + movieId)
       .subscribe(() => {
-        console.log('Deleted!');
+          const updatedMovies = this.movies.filter(post => post.id !== movieId);
+          this.movies = updatedMovies;
+          this.moviesUpdated.next([...this.movies]);
       });
   }
 }
