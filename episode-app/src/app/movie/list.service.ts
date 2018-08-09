@@ -54,7 +54,6 @@ export class ListService {
   }
 
   deleteMovie(movieId: string) {
-    console.log(movieId);
     this.http
       .delete('http://localhost:3000/api/movies/' + movieId)
       .subscribe(() => {

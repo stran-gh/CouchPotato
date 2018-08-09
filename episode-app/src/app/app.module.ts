@@ -18,6 +18,7 @@ import { TvSeriesListComponent } from './tv-series/tv-series-list/tv-series-list
 import { TvSeriesItemComponent } from './tv-series/tv-series-item/tv-series-item.component';
 import { HeaderComponent } from './header/header.component';
 import { MovieItemCreateComponent } from './movie/movie-item-create/movie-item-create.component';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { MovieItemCreateComponent } from './movie/movie-item-create/movie-item-c
   ],
   imports: [
     BrowserModule,
+    AppRoutingModule,
     BrowserAnimationsModule,
     FormsModule,
     MatButtonModule,
