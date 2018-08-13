@@ -13,19 +13,19 @@ export class ListService {
 
   getMovies() {
     this.http
-      .get<{ message: string; movies: any }>(
-        'http://localhost:3000/api/movies'
+      .get<{ message: string; movies: any }>('http://localhost:3000/api/movies')
+      .pipe(
+        map(postData => {
+          return postData.movies.map(movie => {
+            return {
+              id: movie._id,
+              title: movie.title,
+              description: movie.description,
+              type: movie.type
+            };
+          });
+        })
       )
-      .pipe(map((postData) => {
-        return postData.movies.map(movie => {
-          return {
-            id: movie._id,
-            title: movie.title,
-            description: movie.description,
-            type: movie.type
-          };
-        });
-      }))
       .subscribe(transformedMovies => {
         this.movies = transformedMovies;
         this.moviesUpdated.next([...this.movies]);
@@ -44,7 +44,10 @@ export class ListService {
       type: type
     };
     this.http
-      .post<{ message: string, movieId: string }>('http://localhost:3000/api/movies/', movie)
+      .post<{ message: string; movieId: string }>(
+        'http://localhost:3000/api/movies/',
+        movie
+      )
       .subscribe(responseData => {
         const id = responseData.movieId;
         movie.id = id;
@@ -53,13 +56,40 @@ export class ListService {
       });
   }
 
+  updateMovie(id: string, title: string, description: string, type: string) {
+    const movie: Movie = {
+      id: id,
+      title: title,
+      description: description,
+      type: type
+    };
+    this.http
+      .put('http://localhost:3000/api/movies/' + id, movie)
+      .subscribe(response => {
+        const updatedMovies = [...this.movies];
+        const oldMovieIndex = updatedMovies.findIndex(m => m.id === movie.id);
+        updatedMovies[oldMovieIndex] = movie;
+        this.movies = updatedMovies;
+        this.moviesUpdated.next([...this.movies]);
+      });
+  }
+
   deleteMovie(movieId: string) {
     this.http
       .delete('http://localhost:3000/api/movies/' + movieId)
       .subscribe(() => {
-          const updatedMovies = this.movies.filter(post => post.id !== movieId);
-          this.movies = updatedMovies;
-          this.moviesUpdated.next([...this.movies]);
+        const updatedMovies = this.movies.filter(post => post.id !== movieId);
+        this.movies = updatedMovies;
+        this.moviesUpdated.next([...this.movies]);
       });
+  }
+
+  getMovie(id: string) {
+    return this.http.get<{
+      _id: string;
+      title: string;
+      description: string;
+      type: string;
+    }>('http://localhost:3000/api/movies/' + id);
   }
 }

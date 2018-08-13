@@ -6,7 +6,8 @@ import { MovieItemCreateComponent } from './movie/movie-item-create/movie-item-c
 
 const routes: Routes = [
   { path: '', component: MovieListComponent },
-  { path: 'create', component: MovieItemCreateComponent }
+  { path: 'create', component: MovieItemCreateComponent },
+  { path: 'edit/:movieId', component: MovieItemCreateComponent }
 ];
 
 @NgModule({

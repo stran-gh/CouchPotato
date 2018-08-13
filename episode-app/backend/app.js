@@ -27,7 +27,7 @@ app.use((req, res, next) => {
   );
   res.setHeader(
     "Access-Control-Allow-Methods",
-    "GET, POST, PATCH, DELETE, OPTIONS"
+    "GET, POST, PATCH, PUT DELETE, OPTIONS"
   );
   next();
 });
@@ -45,6 +45,29 @@ app.post('/api/movies', (req, res, next) => {
     });
   });
 });
+
+app.put('/api/posts/:id', (req, res, next) => {
+  const movie = new Movie({
+    _id: req.body.id,
+    title: req.body.title,
+    description: req.body.description,
+    type: req.body.type
+  });
+  Movie.updateOne({_id: req.params.id}, movie).then(result => {
+    console.log(result);
+    res.status(200).json({message: "Update successful"});
+  });
+});
+
+app.get('/api/movies/:id', (req, res, next) => {
+  Movie.findById(req.params.id).then(movie => {
+    if(movie) {
+      res.status(200).json(movie);
+    } else {
+      res.status(404).json({message: 'Movie not found!'});
+    }
+  })
+})
 
 app.get('/api/movies', (req, res, next) => {
   Movie.find()

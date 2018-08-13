@@ -10,7 +10,7 @@
       {{ movie.type }}
     </mat-panel-description>
     <mat-action-row>
-      <button mat-button color="primary">EDIT</button>
+      <a mat-button color="primary" [routerLink]="['/edit', movie.id]">EDIT</a>
       <button mat-button color="warn" (click)="onDelete(movie.id)">DELETE</button>
     </mat-action-row>
   </mat-expansion-panel>
