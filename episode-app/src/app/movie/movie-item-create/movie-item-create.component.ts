@@ -20,6 +20,7 @@ export class MovieItemCreateComponent implements OnInit {
   private mode = 'create';
   private movieId: string;
   movie: Movie;
+  isLoading = false;
 
   constructor(public listService: ListService, public route: ActivatedRoute) {}
 
@@ -28,7 +29,9 @@ export class MovieItemCreateComponent implements OnInit {
       if (paramMap.has('movieId')) {
         this.mode = 'edit';
         this.movieId = paramMap.get('movieId');
+        this.isLoading = true;
         this.listService.getMovie(this.movieId).subscribe(postData => {
+          this.isLoading = false;
           this.movie = {id: postData._id, title: postData.title, description: postData.description, type: postData.type};
         });
         console.log(this.movie);
@@ -43,6 +46,7 @@ export class MovieItemCreateComponent implements OnInit {
     if (form.invalid) {
       return;
     }
+    this.isLoading = true;
     if (this.mode === 'create') {
       this.listService.addMovie(
         form.value.title,

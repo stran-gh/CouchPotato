@@ -3,13 +3,14 @@ import { Subject } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Injectable({ providedIn: 'root' })
 export class ListService {
   private movies: Movie[] = [];
   private moviesUpdated = new Subject<Movie[]>();
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   getMovies() {
     this.http
@@ -53,6 +54,7 @@ export class ListService {
         movie.id = id;
         this.movies.push(movie);
         this.moviesUpdated.next([...this.movies]);
+        this.router.navigate(['/']);
       });
   }
 
@@ -71,6 +73,7 @@ export class ListService {
         updatedMovies[oldMovieIndex] = movie;
         this.movies = updatedMovies;
         this.moviesUpdated.next([...this.movies]);
+        this.router.navigate(['/']);
       });
   }
 

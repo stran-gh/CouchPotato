@@ -1,5 +1,6 @@
 <h2 class="mat-h2"> Create A Watch Item </h2>
-<form (submit)="onSaveMedia(postForm)" #postForm="ngForm">
+<mat-spinner *ngIf="isLoading"></mat-spinner>
+<form (submit)="onSaveMedia(postForm)" #postForm="ngForm" *ngIf="!isLoading">
   <mat-form-field>
       <input
         matInput
