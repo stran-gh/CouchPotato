@@ -6,6 +6,7 @@ import {
   ActivatedRoute,
   ParamMap
 } from '../../../../node_modules/@angular/router';
+import { mimeType } from './mime-type.validator';
 
 @Component({
   selector: 'app-movie-item-create',
@@ -22,6 +23,7 @@ export class MovieItemCreateComponent implements OnInit {
   movie: Movie;
   isLoading = false;
   form: FormGroup;
+  imagePreview: string;
 
   constructor(public listService: ListService, public route: ActivatedRoute) {}
 
@@ -35,6 +37,10 @@ export class MovieItemCreateComponent implements OnInit {
       }),
       type: new FormControl(null, {
         validators: [Validators.required]
+      }),
+      image: new FormControl(null, {
+        validators: [Validators.required],
+        asyncValidators: [mimeType]
       })
     });
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
@@ -83,5 +89,16 @@ export class MovieItemCreateComponent implements OnInit {
       );
     }
     this.form.reset();
+  }
+
+  onImagePicked(event: Event) {
+    const file = (event.target as HTMLInputElement).files[0];
+    this.form.patchValue({image: file});
+    this.form.get('image').updateValueAndValidity();
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.imagePreview = reader.result;
+    };
+    reader.readAsDataURL(file);
   }
 }
