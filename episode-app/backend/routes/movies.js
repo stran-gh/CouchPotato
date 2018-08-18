@@ -1,12 +1,33 @@
 const express = require('express');
+const multer = require('multer');
 const Movie = require('../models/movie');
 
 const router = express.Router();
 
+const MIME_TYPE_MAP = {
+  'image/png': 'png',
+  'image/jpeg': 'jpg',
+  'image/jpg': 'jpg'
+}
+
+const storage = multer.diskStorage({
+  destination: (req, file, callback) => {
+    const isValid = MIME_TYPE_MAP[file.mimetype];
+    let error = new Error('Invalid mime type');
+    if (isValid) {
+      error = null;
+    }
+    callback(error, 'backend/images');
+  },
+  filename: (req, file, callback) => {
+    const name = file.originalname.toLowerCase().split(' ').join('-');
+    const extension = MIME_TYPE_MAP[file.mimetype];
+    callback(null, name + '-' + Date.now() + '.' + extension);
+  }
+});
 
 
-
-router.post('', (req, res, next) => {
+router.post('', multer({storage: storage}).single('image'), (req, res, next) => {
   const movie = new Movie({
     title: req.body.title,
     description: req.body.description,

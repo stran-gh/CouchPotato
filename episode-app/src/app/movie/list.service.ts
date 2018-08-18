@@ -37,21 +37,20 @@ export class ListService {
     return this.moviesUpdated.asObservable();
   }
 
-  addMovie(title: string, description: string, type: string) {
-    const movie: Movie = {
-      id: null,
-      title: title,
-      description: description,
-      type: type
-    };
+  addMovie(title: string, description: string, type: string, image: File) {
+    const movieData = new FormData();
+    movieData.append('title', title);
+    movieData.append('description', description);
+    movieData.append('type', type);
+    movieData.append('image', image, title);
+
     this.http
       .post<{ message: string; movieId: string }>(
         'http://localhost:3000/api/movies/',
-        movie
+        movieData
       )
       .subscribe(responseData => {
-        const id = responseData.movieId;
-        movie.id = id;
+        const movie: Movie = { id: responseData.movieId, title: title, description: description, type: type };
         this.movies.push(movie);
         this.moviesUpdated.next([...this.movies]);
         this.router.navigate(['/']);

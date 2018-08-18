@@ -78,7 +78,8 @@ export class MovieItemCreateComponent implements OnInit {
       this.listService.addMovie(
         this.form.value.title,
         this.form.value.description,
-        this.form.value.type
+        this.form.value.type,
+        this.form.value.image
       );
     } else {
       this.listService.updateMovie(
