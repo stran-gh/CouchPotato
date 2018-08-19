@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
@@ -6,6 +7,7 @@ const moviesRoutes = require('./routes/movies');
 
 const app = express();
 
+// cd desktop/mongodb/bin and run
 const connectionString = "mongodb+srv://steve:EMDrKmbPBRrXZdoa@cluster0-nmedl.mongodb.net/node-angular?retryWrites=true";
 
 mongoose.connect(connectionString, { useNewUrlParser: true})
@@ -18,6 +20,7 @@ mongoose.connect(connectionString, { useNewUrlParser: true})
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use('/images', express.static(path.join('backend/images')));
 
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");

@@ -22,7 +22,8 @@ export class ListService {
               id: movie._id,
               title: movie.title,
               description: movie.description,
-              type: movie.type
+              type: movie.type,
+              imagePath: movie.imagePath
             };
           });
         })
@@ -45,12 +46,18 @@ export class ListService {
     movieData.append('image', image, title);
 
     this.http
-      .post<{ message: string; movieId: string }>(
+      .post<{ message: string; movie: Movie }>(
         'http://localhost:3000/api/movies/',
         movieData
       )
       .subscribe(responseData => {
-        const movie: Movie = { id: responseData.movieId, title: title, description: description, type: type };
+        const movie: Movie = {
+          id: responseData.movie.id,
+          title: title,
+          description: description,
+          type: type,
+          imagePath: responseData.movie.imagePath
+        };
         this.movies.push(movie);
         this.moviesUpdated.next([...this.movies]);
         this.router.navigate(['/']);
@@ -62,7 +69,8 @@ export class ListService {
       id: id,
       title: title,
       description: description,
-      type: type
+      type: type,
+      imagePath: null
     };
     this.http
       .put('http://localhost:3000/api/movies/' + id, movie)

@@ -54,7 +54,8 @@ export class MovieItemCreateComponent implements OnInit {
             id: postData._id,
             title: postData.title,
             description: postData.description,
-            type: postData.type
+            type: postData.type,
+            imagePath: null
           };
           this.form.setValue({
             title: this.movie.title,

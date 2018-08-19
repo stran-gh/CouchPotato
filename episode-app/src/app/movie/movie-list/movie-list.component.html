@@ -4,6 +4,9 @@
     <mat-expansion-panel-header>
       {{ movie.title }}
     </mat-expansion-panel-header>
+    <div class="movie-image">
+      <img [src]="movie.imagePath" [alt]="movie.title">
+    </div>
     <mat-panel-description>
       {{ movie.description }}
     </mat-panel-description>

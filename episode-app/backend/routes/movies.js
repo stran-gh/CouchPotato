@@ -28,15 +28,20 @@ const storage = multer.diskStorage({
 
 
 router.post('', multer({storage: storage}).single('image'), (req, res, next) => {
+  const url = req.protocol + '://' + req.get('host');
   const movie = new Movie({
     title: req.body.title,
     description: req.body.description,
-    type: req.body.type
+    type: req.body.type,
+    imagePath: url + '/images/' + req.file.filename
   });
   movie.save().then((createdMovie) => {
     res.status(201).json({
       message: 'Movie added successfully',
-      movieId: createdMovie._id
+      movie: {
+        ...createdMovie,
+        id: createdMovie._id
+      }
     });
   });
 });

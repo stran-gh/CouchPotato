@@ -9,3 +9,12 @@ mat-accordion {
 mat-spinner {
   margin: auto;
 }
+
+.movie-image {
+  width: 100%;
+}
+
+.movie-image img {
+  width: 100%;
+  box-shadow: 1px 1px 5px rgba(0,0,0)
+}
