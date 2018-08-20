@@ -46,37 +46,59 @@ export class ListService {
     movieData.append('image', image, title);
 
     this.http
-      .post<{ message: string; movie: Movie }>(
-        'http://localhost:3000/api/movies/',
-        movieData
-      )
-      .subscribe(responseData => {
+    .post<{ message: string; movie: Movie }>(
+      'http://localhost:3000/api/movies/',
+      movieData
+    )
+    .subscribe(responseData => {
+      const movie: Movie = {
+        id: responseData.movie.id,
+        title: title,
+        description: description,
+        type: type,
+        imagePath: responseData.movie.imagePath
+      };
+      this.movies.push(movie);
+      this.moviesUpdated.next([...this.movies]);
+      this.router.navigate(['/']);
+    });
+  }
+
+  updateMovie(
+    id: string,
+    title: string,
+    description: string,
+    type: string,
+    image: File | string
+  ) {
+    let movieData: Movie | FormData;
+    if (typeof image === 'object') {
+      movieData = new FormData();
+      movieData.append('title', title);
+      movieData.append('description', description);
+      movieData.append('image', image, title);
+      movieData.append('id', id);
+    } else {
+      movieData = {
+        id: id,
+        title: title,
+        description: description,
+        type: type,
+        imagePath: image
+      };
+    }
+    this.http
+      .put('http://localhost:3000/api/movies/' + id, movieData)
+      .subscribe(response => {
+        const updatedMovies = [...this.movies];
+        const oldMovieIndex = updatedMovies.findIndex(m => m.id === id);
         const movie: Movie = {
-          id: responseData.movie.id,
+          id: id,
           title: title,
           description: description,
           type: type,
-          imagePath: responseData.movie.imagePath
+          imagePath: response.imagePath
         };
-        this.movies.push(movie);
-        this.moviesUpdated.next([...this.movies]);
-        this.router.navigate(['/']);
-      });
-  }
-
-  updateMovie(id: string, title: string, description: string, type: string) {
-    const movie: Movie = {
-      id: id,
-      title: title,
-      description: description,
-      type: type,
-      imagePath: null
-    };
-    this.http
-      .put('http://localhost:3000/api/movies/' + id, movie)
-      .subscribe(response => {
-        const updatedMovies = [...this.movies];
-        const oldMovieIndex = updatedMovies.findIndex(m => m.id === movie.id);
         updatedMovies[oldMovieIndex] = movie;
         this.movies = updatedMovies;
         this.moviesUpdated.next([...this.movies]);
@@ -96,10 +118,11 @@ export class ListService {
 
   getMovie(id: string) {
     return this.http.get<{
-      _id: string;
-      title: string;
-      description: string;
-      type: string;
+      _id: string,
+      title: string,
+      description: string,
+      type: string,
+      imagePath: string,
     }>('http://localhost:3000/api/movies/' + id);
   }
 }

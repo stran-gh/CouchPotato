@@ -55,12 +55,13 @@ export class MovieItemCreateComponent implements OnInit {
             title: postData.title,
             description: postData.description,
             type: postData.type,
-            imagePath: null
+            imagePath: postData.imagePath
           };
           this.form.setValue({
             title: this.movie.title,
             description: this.movie.description,
-            type: this.movie.type
+            type: this.movie.type,
+            image: this.movie.imagePath
           });
         });
       } else {
@@ -87,7 +88,8 @@ export class MovieItemCreateComponent implements OnInit {
         this.movieId,
         this.form.value.title,
         this.form.value.description,
-        this.form.value.type
+        this.form.value.type,
+        this.form.value.image
       );
     }
     this.form.reset();
