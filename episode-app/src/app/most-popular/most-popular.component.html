@@ -4,11 +4,29 @@
       <h3>Most Popular Movies</h3>
       <ul class="list-group">
         <li class="list-group-item" *ngFor="let movie of movieList">
-          {{movie}}
           <div class="float-lg-right float-md-right">
             <button class="btn btn-success">
-              <span class="ion ion-md-add"></span>
+              <span class="ion ion-md-add"></span> To List
             </button>
+          </div>
+          <div class="row">
+            <div class="col-lg col-md">
+              <img src={{baseImagePath}}{{movie.imagePath}}/>
+            </div>
+            <div class="col-lg col-md">
+              <h4 class="mx-auto">
+                {{movie.title}}
+              </h4>
+              <div class="row mx-auto">
+                Rating: {{movie.rating}}
+              </div>
+              <div class="row mx-auto">
+                Released: {{movie.releaseDate}}
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <b>Summary: </b>{{movie.description}}
           </div>
         </li>
       </ul>

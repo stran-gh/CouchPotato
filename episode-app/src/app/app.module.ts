@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { MatButtonModule,
          MatInputModule,
          MatCardModule,
@@ -21,6 +21,8 @@ import { HeaderComponent } from './header/header.component';
 import { MovieItemCreateComponent } from './movie/movie-item-create/movie-item-create.component';
 import { AppRoutingModule } from './app-routing.module';
 import { MostPopularComponent } from './most-popular/most-popular.component';
+import { TMBDatabaseService } from './services/tMBDatabase.service';
+import { ServiceConstants } from './constants/serviceConstants';
 
 @NgModule({
   declarations: [
@@ -48,7 +50,11 @@ import { MostPopularComponent } from './most-popular/most-popular.component';
     MatProgressSpinnerModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [
+    TMBDatabaseService,
+    HttpClient,
+    ServiceConstants
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
