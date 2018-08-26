@@ -34,13 +34,28 @@
     <div class="col-md col-lg">
       <h3>Most Popular Shows</h3>
       <ul class="list-group">
-        <li class="list-group-item" *ngFor="let show of episodeList">
-          {{show}}
+        <li class="list-group-item" *ngFor="let show of tvShowList">
           <div class="float-lg-right float-md-right">
             <button class="btn btn-success">
-              <span class="ion ion-md-add"></span>
+              <span class="ion ion-md-add"></span> To List
             </button>
           </div>
+          <div class="row">
+              <div class="col-lg col-md">
+                <img src={{baseImagePath}}{{show.imagePath}}/>
+              </div>
+              <div class="col-lg col-md">
+                <h4 class="mx-auto">
+                  {{show.title}}
+                </h4>
+                <div class="row mx-auto">
+                  First Aired On: <br/> {{show.releaseDate}}
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <b>Summary: </b>{{show.description}}
+            </div>
         </li>
       </ul>
     </div>
