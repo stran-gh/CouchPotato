@@ -1,4 +1,4 @@
-import { Movie } from './movie.model';
+import { Movie } from '../movie/movie.model';
 import { Subject } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
@@ -97,7 +97,7 @@ export class ListService {
           title: title,
           description: description,
           type: type,
-          imagePath: response.imagePath
+          imagePath: null
         };
         updatedMovies[oldMovieIndex] = movie;
         this.movies = updatedMovies;

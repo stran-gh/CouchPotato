@@ -20,6 +20,7 @@ import { TvSeriesItemComponent } from './tv-series/tv-series-item/tv-series-item
 import { HeaderComponent } from './header/header.component';
 import { MovieItemCreateComponent } from './movie/movie-item-create/movie-item-create.component';
 import { AppRoutingModule } from './app-routing.module';
+import { MostPopularComponent } from './most-popular/most-popular.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { AppRoutingModule } from './app-routing.module';
     TvSeriesItemComponent,
     TvSeriesListComponent,
     HeaderComponent,
-    MovieItemCreateComponent
+    MovieItemCreateComponent,
+    MostPopularComponent
   ],
   imports: [
     BrowserModule,

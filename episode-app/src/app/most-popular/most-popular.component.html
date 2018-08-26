@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md col-lg">
+      <h3>Most Popular Movies</h3>
+      <ul class="list-group">
+        <li class="list-group-item" *ngFor="let movie of movieList">
+          {{movie}}
+          <div class="float-lg-right float-md-right">
+            <button class="btn btn-success">
+              <span class="ion ion-md-add"></span>
+            </button>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="col-md col-lg">
+      <h3>Most Popular Shows</h3>
+      <ul class="list-group">
+        <li class="list-group-item" *ngFor="let show of episodeList">
+          {{show}}
+          <div class="float-lg-right float-md-right">
+            <button class="btn btn-success">
+              <span class="ion ion-md-add"></span>
+            </button>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

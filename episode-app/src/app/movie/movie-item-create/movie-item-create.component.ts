@@ -1,11 +1,11 @@
 import { Component, OnInit, EventEmitter } from '@angular/core';
 import { Movie } from '../movie.model';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { ListService } from '../list.service';
+import { ListService } from '../../services/list.service';
 import {
   ActivatedRoute,
   ParamMap
-} from '../../../../node_modules/@angular/router';
+} from '@angular/router';
 import { mimeType } from './mime-type.validator';
 
 @Component({
