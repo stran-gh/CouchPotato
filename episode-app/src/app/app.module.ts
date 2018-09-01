@@ -23,6 +23,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { MostPopularComponent } from './most-popular/most-popular.component';
 import { TMBDatabaseService } from './services/tMBDatabase.service';
 import { ServiceConstants } from './constants/serviceConstants';
+import { SearchResultsComponent } from './search/search-results/search-results.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { ServiceConstants } from './constants/serviceConstants';
     TvSeriesListComponent,
     HeaderComponent,
     MovieItemCreateComponent,
-    MostPopularComponent
+    MostPopularComponent,
+    SearchResultsComponent
   ],
   imports: [
     BrowserModule,

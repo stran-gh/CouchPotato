@@ -1,4 +1,9 @@
-<mat-form-field>
-  <input matInput type="text" placeholder="Enter a Search Query"/>
-</mat-form-field>
-<button mat-raised-button type="submit"> See Details </button>
+<div class="spacing"></div>
+<div class="row">
+  <div class="mx-auto input-group search-input">
+      <input matInput class="form-control" #searchQuery type="text" placeholder="Search..." />
+    <button class="btn btn-secondary" (click)="onSearchPressed(searchQuery.value)">
+      <span class="ion ion-md-search"></span>
+    </button>
+  </div>
+</div>

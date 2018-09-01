@@ -20,7 +20,6 @@ export class MostPopularComponent implements OnInit {
   constructor(public tMBDatabaseService: TMBDatabaseService) { }
 
   ngOnInit() {
-    this.tvShowList = ['Hello', 'My', 'Name', 'is', 'ShowList'];
     this.tMBDatabaseService.getPopularMovies();
     this.movieListSub = this.tMBDatabaseService.getMovieUpdateListener()
       .subscribe((movieListFromAPI: DBMovie[]) => {

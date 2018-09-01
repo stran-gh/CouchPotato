@@ -15,6 +15,39 @@ export class TMBDatabaseService {
   private popularMovies: DBMovie[] = [];
   private popularTVShowsUpdated = new Subject();
   private popularMoviesUpdated = new Subject();
+  private movieSearchResult: DBMovie[] = [];
+  private movieSearchUpdated = new Subject();
+  searchString: string;
+
+
+  searchByMovieTitle(searchQuery: string) {
+    console.log('Just called the TMBDatabaseService');
+    return this.http
+      .get<DatabaseResponse>(
+        'https://api.themoviedb.org/3/search/movie?api_key=256776cc4140ac376c95ea83c0992ea2&language=en-US&query='
+        + searchQuery + '&page=1&include_adult=false'
+      )
+      .subscribe(fullListData => {
+        for (let i = 0; i < this.serviceConstants.TOTAL_NUM_DISPLAY; i++) {
+          this.movieSearchResult.push({
+            id: fullListData.results[i].id,
+            title: fullListData.results[i].title,
+            description: fullListData.results[i].overview,
+            imagePath: fullListData.results[i].backdrop_path,
+            rating: fullListData.results[i].vote_average,
+            releaseDate: fullListData.results[i].release_date
+          });
+          console.log('just pushed to the list');
+        }
+        this.movieSearchUpdated.next([...this.movieSearchResult]);
+      });
+  }
+
+  getSearchMovieUpdateListener() {
+    console.log('In the Listener');
+    console.log(this.movieSearchResult);
+    return this.movieSearchUpdated.asObservable();
+  }
 
   getPopularMovies() {
     return this.http
