@@ -4,8 +4,8 @@
       Search in...
     </h4>
     <div class="btn-group-vertical">
-      <button class="btn btn-light"> Movies </button>
-      <button class="btn btn-light"> TV Shows </button>
+      <button class="btn btn-light" (click)="onMoviesClicked()">Movies </button>
+      <button class="btn btn-light" (click)="onShowsClicked()"> TV Shows </button>
     </div>
   </div>
   <div class="vl"></div>
@@ -13,8 +13,9 @@
     <h5>
       Showing search results for {{searchQuery}}...
     </h5>
-    <ul class="list-group">
-      <li class="list-group-item" *ngFor="let movie of searchResults">
+
+    <ul class="list-group" *ngIf="displayMovies">
+      <li class="list-group-item" *ngFor="let movie of movieSearchResults">
         <div class="float-lg-right float-md-right">
           <button class="btn btn-success">
             <span class="ion ion-md-add"></span> To List
@@ -29,13 +30,50 @@
               {{movie.title}}
             </h4>
             <div class="row mx-auto">
-              First Aired On:
-              <br/> {{movie.releaseDate}}
+              <span class="align-middle">
+                Released On: {{movie.releaseDate}}
+              </span>
+            </div>
+            <div class="row mx-auto">
+              Rating:{{movie.rating}}/10
             </div>
           </div>
         </div>
         <div class="row">
           <b>Summary: </b>{{movie.description}}
+        </div>
+      </li>
+    </ul>
+
+    <ul class="list-group" *ngIf="!displayMovies">
+      <li class="list-group-item" *ngFor="let show of tvSearchResults">
+        <div class="float-lg-right float-md-right">
+          <button class="btn btn-success">
+            <span class="ion ion-md-add"></span> To List
+          </button>
+        </div>
+        <div class="row">
+          <div class="col-lg col-md">
+            <img src={{baseImagePath}}{{show.imagePath}}/>
+          </div>
+          <div class="col-lg col-md">
+            <h4 class="mx-auto">
+              {{show.title}}
+            </h4>
+            <div class="row mx-auto">
+              First Aired On:
+              <br/> {{show.releaseDate}}
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <b>Summary: </b>
+          <div *ngIf="show.description">
+              {{show.description}}
+          </div>
+          <div *ngIf="!show.description">
+              No description currently available.
+          </div>
         </div>
       </li>
     </ul>

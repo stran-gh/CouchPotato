@@ -4,6 +4,7 @@ import { Subscription } from '../../../../node_modules/rxjs';
 import { SearchService } from '../../services/search.service';
 import { Movie } from '../../movie/movie.model';
 import { DBMovie } from '../../models/dbMovie.model';
+import { DBShow } from '../../models/dbShow.model';
 
 @Component({
   selector: 'app-search-results',
@@ -14,22 +15,41 @@ export class SearchResultsComponent implements OnInit, OnDestroy {
 
   constructor(public tMBDatabaseService: TMBDatabaseService, public searchService: SearchService) { }
 
-  searchResults = [];
-  private searchListSub: Subscription;
+  movieSearchResults = [];
+  tvSearchResults = [];
+  private movieSearchListSub: Subscription;
+  private tvSearchListSub: Subscription;
   baseImagePath = 'http://image.tmdb.org/t/p/w185/';
   searchQuery: string;
+  displayMovies: Boolean;
 
   ngOnInit() {
     this.searchQuery = this.searchService.searchQuery;
     this.tMBDatabaseService.searchByMovieTitle(this.searchQuery);
-    this.searchListSub = this.tMBDatabaseService.getSearchMovieUpdateListener()
+    this.movieSearchListSub = this.tMBDatabaseService.getSearchMovieUpdateListener()
       .subscribe((movies: DBMovie[]) => {
-        this.searchResults = movies;
-        console.log('movies back beck from the service:' + this.searchResults);
+        this.movieSearchResults = movies;
+        console.log('movies back beck from the service:' + this.movieSearchResults);
       });
+    this.tMBDatabaseService.searchByShowTitle(this.searchQuery);
+    this.tvSearchListSub = this.tMBDatabaseService.getSearchShowUpdateListener()
+      .subscribe((shows: DBShow[]) => {
+        this.tvSearchResults = shows;
+        console.log('shows back from the service:' + this.tvSearchResults);
+      });
+      this.displayMovies = true;
+  }
+
+  onShowsClicked() {
+    this.displayMovies = false;
+  }
+
+  onMoviesClicked() {
+    this.displayMovies = true;
   }
 
   ngOnDestroy() {
-    this.searchListSub.unsubscribe();
+    this.movieSearchListSub.unsubscribe();
+    this.tvSearchListSub.unsubscribe();
   }
 }
