@@ -24,18 +24,17 @@ export class SearchResultsComponent implements OnInit, OnDestroy {
   displayMovies: Boolean;
 
   ngOnInit() {
+    console.log('In here');
     this.searchQuery = this.searchService.searchQuery;
     this.tMBDatabaseService.searchByMovieTitle(this.searchQuery);
     this.movieSearchListSub = this.tMBDatabaseService.getSearchMovieUpdateListener()
       .subscribe((movies: DBMovie[]) => {
         this.movieSearchResults = movies;
-        console.log('movies back beck from the service:' + this.movieSearchResults);
       });
     this.tMBDatabaseService.searchByShowTitle(this.searchQuery);
     this.tvSearchListSub = this.tMBDatabaseService.getSearchShowUpdateListener()
       .subscribe((shows: DBShow[]) => {
         this.tvSearchResults = shows;
-        console.log('shows back from the service:' + this.tvSearchResults);
       });
       this.displayMovies = true;
   }

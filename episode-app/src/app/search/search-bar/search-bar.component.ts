@@ -15,10 +15,7 @@ export class SearchBarComponent implements OnInit {
   }
 
   onSearchPressed(searchQuery: string) {
-    console.log('The Search Button was pressed, sent: ' + searchQuery);
     this.searchService.searchQuery = searchQuery;
-    console.log('The SS updated: ' + this.searchService.searchQuery);
     this.router.navigate(['/search']);
   }
-
 }

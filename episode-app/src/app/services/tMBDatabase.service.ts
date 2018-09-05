@@ -9,7 +9,10 @@ import { DBShow } from '../models/dbShow.model';
 
 @Injectable()
 export class TMBDatabaseService {
-  constructor(private http: HttpClient, private serviceConstants: ServiceConstants) {}
+  constructor(
+    private http: HttpClient,
+    private serviceConstants: ServiceConstants
+  ) {}
 
   private popularTVShows: DBShow[] = [];
   private popularMovies: DBMovie[] = [];
@@ -21,47 +24,52 @@ export class TMBDatabaseService {
   private tvSearchUpdated = new Subject();
   searchString: string;
 
-
   searchByMovieTitle(searchQuery: string) {
+    const dataFilteredResult: DBMovie[] = [];
     return this.http
       .get<DatabaseResponse>(
-        'https://api.themoviedb.org/3/search/movie?api_key=256776cc4140ac376c95ea83c0992ea2&language=en-US&query='
-        + searchQuery + '&page=1&include_adult=false'
-      )
-      .subscribe(fullListData => {
-        for (let i = 0; i < this.serviceConstants.TOTAL_NUM_DISPLAY; i++) {
-          this.movieSearchResult.push({
-            id: fullListData.results[i].id,
-            title: fullListData.results[i].title,
-            description: fullListData.results[i].overview,
-            imagePath: fullListData.results[i].backdrop_path,
-            rating: fullListData.results[i].vote_average,
-            releaseDate: fullListData.results[i].release_date
-          });
-        }
-        this.movieSearchUpdated.next([...this.movieSearchResult]);
-      });
-  }
-
-  getSearchMovieUpdateListener() {
-    console.log('In the Listener');
-    console.log(this.movieSearchResult);
-    return this.movieSearchUpdated.asObservable();
-  }
-
-  searchByShowTitle(searchQuery: string) {
-    console.log('Just called the TMBDatabaseService');
-    return this.http
-      .get<DatabaseResponse>(
-        'https://api.themoviedb.org/3/search/tv?api_key=256776cc4140ac376c95ea83c0992ea2&language=en-US&query='
-        + searchQuery + '&page=1'
+        'https://api.themoviedb.org/3/search/movie?api_key=256776cc4140ac376c95ea83c0992ea2&language=en-US&query=' +
+          searchQuery +
+          '&page=1&include_adult=false'
       )
       .subscribe(fullListData => {
         for (let i = 0; i < this.serviceConstants.TOTAL_NUM_DISPLAY; i++) {
           if (!fullListData.results[i]) {
             break;
           } else {
-            this.tvSearchResult.push({
+            dataFilteredResult.push({
+              id: fullListData.results[i].id,
+              title: fullListData.results[i].title,
+              description: fullListData.results[i].overview,
+              imagePath: fullListData.results[i].backdrop_path,
+              rating: fullListData.results[i].vote_average,
+              releaseDate: fullListData.results[i].release_date
+            });
+          }
+        }
+        this.movieSearchResult = dataFilteredResult;
+        this.movieSearchUpdated.next([...this.movieSearchResult]);
+      });
+  }
+
+  getSearchMovieUpdateListener() {
+    return this.movieSearchUpdated.asObservable();
+  }
+
+  searchByShowTitle(searchQuery: string) {
+    const dataFilteredResult: DBShow[] = [];
+    return this.http
+      .get<DatabaseResponse>(
+        'https://api.themoviedb.org/3/search/tv?api_key=256776cc4140ac376c95ea83c0992ea2&language=en-US&query=' +
+          searchQuery +
+          '&page=1'
+      )
+      .subscribe(fullListData => {
+        for (let i = 0; i < this.serviceConstants.TOTAL_NUM_DISPLAY; i++) {
+          if (!fullListData.results[i]) {
+            break;
+          } else {
+            dataFilteredResult.push({
               id: fullListData.results[i].id,
               title: fullListData.results[i].name,
               description: fullListData.results[i].overview,
@@ -69,15 +77,13 @@ export class TMBDatabaseService {
               releaseDate: fullListData.results[i].first_air_date
             });
           }
-          console.log('just pushed to the list');
         }
+        this.tvSearchResult = dataFilteredResult;
         this.tvSearchUpdated.next([...this.tvSearchResult]);
       });
   }
 
   getSearchShowUpdateListener() {
-    console.log('In the Listener');
-    console.log(this.tvSearchResult);
     return this.tvSearchUpdated.asObservable();
   }
 
@@ -106,25 +112,25 @@ export class TMBDatabaseService {
   }
 
   getPopularTVShows() {
-    return this.http.get<DatabaseResponse>(
-      'https://api.themoviedb.org/3/tv/popular?api_key=256776cc4140ac376c95ea83c0992ea2&language=en-US&page=1'
-    )
-    .subscribe(fullListData => {
-      for (let i = 0; i < this.serviceConstants.TOTAL_NUM_DISPLAY; i++) {
-        this.popularTVShows.push({
-          id: fullListData.results[i].id,
-          title: fullListData.results[i].name,
-          description: fullListData.results[i].overview,
-          releaseDate: fullListData.results[i].first_air_date,
-          imagePath: fullListData.results[i].backdrop_path
-        });
-      }
-      this.popularTVShowsUpdated.next([...this.popularTVShows]);
-    });
+    return this.http
+      .get<DatabaseResponse>(
+        'https://api.themoviedb.org/3/tv/popular?api_key=256776cc4140ac376c95ea83c0992ea2&language=en-US&page=1'
+      )
+      .subscribe(fullListData => {
+        for (let i = 0; i < this.serviceConstants.TOTAL_NUM_DISPLAY; i++) {
+          this.popularTVShows.push({
+            id: fullListData.results[i].id,
+            title: fullListData.results[i].name,
+            description: fullListData.results[i].overview,
+            releaseDate: fullListData.results[i].first_air_date,
+            imagePath: fullListData.results[i].backdrop_path
+          });
+        }
+        this.popularTVShowsUpdated.next([...this.popularTVShows]);
+      });
   }
 
   getTVShowUpdateListener() {
     return this.popularTVShowsUpdated.asObservable();
   }
-
 }

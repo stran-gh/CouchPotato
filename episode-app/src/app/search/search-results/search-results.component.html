@@ -23,7 +23,8 @@
         </div>
         <div class="row">
           <div class="col-lg col-md">
-            <img src={{baseImagePath}}{{movie.imagePath}}/>
+            <b *ngIf="!movie.imagePath"> No image can currently be displayed. </b>
+            <img *ngIf="movie.imagePath" src={{baseImagePath}}{{movie.imagePath}}/>
           </div>
           <div class="col-lg col-md">
             <h4 class="mx-auto">
@@ -54,7 +55,8 @@
         </div>
         <div class="row">
           <div class="col-lg col-md">
-            <img src={{baseImagePath}}{{show.imagePath}}/>
+            <b *ngIf="!show.imagePath"> No image can currently be displayed. </b>
+            <img *ngIf="show.imagePath" src={{baseImagePath}}{{show.imagePath}}/>
           </div>
           <div class="col-lg col-md">
             <h4 class="mx-auto">
@@ -69,10 +71,10 @@
         <div class="row">
           <b>Summary: </b>
           <div *ngIf="show.description">
-              {{show.description}}
+            {{show.description}}
           </div>
           <div *ngIf="!show.description">
-              No description currently available.
+            No description currently available.
           </div>
         </div>
       </li>
