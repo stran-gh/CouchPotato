@@ -9,6 +9,14 @@ a {
   color: white;
 }
 
-.spacer {
+.spacer-fill {
   flex: 1 1 auto;
+}
+
+.spacer-reg {
+  flex: 1 1 auto;
+}
+
+.on {
+  color: gold;
 }

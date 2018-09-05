@@ -24,7 +24,6 @@ export class SearchResultsComponent implements OnInit, OnDestroy {
   displayMovies: Boolean;
 
   ngOnInit() {
-    console.log('In here');
     this.searchQuery = this.searchService.searchQuery;
     this.tMBDatabaseService.searchByMovieTitle(this.searchQuery);
     this.movieSearchListSub = this.tMBDatabaseService.getSearchMovieUpdateListener()

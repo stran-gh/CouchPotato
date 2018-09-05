@@ -24,6 +24,8 @@ import { MostPopularComponent } from './most-popular/most-popular.component';
 import { TMBDatabaseService } from './services/tMBDatabase.service';
 import { ServiceConstants } from './constants/serviceConstants';
 import { SearchResultsComponent } from './search/search-results/search-results.component';
+import { MostPopularShowComponent } from './most-popular-show/most-popular-show.component';
+import { MostPopularMovieComponent } from './most-popular-movie/most-popular-movie.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,9 @@ import { SearchResultsComponent } from './search/search-results/search-results.c
     HeaderComponent,
     MovieItemCreateComponent,
     MostPopularComponent,
-    SearchResultsComponent
+    SearchResultsComponent,
+    MostPopularShowComponent,
+    MostPopularMovieComponent
   ],
   imports: [
     BrowserModule,

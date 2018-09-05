@@ -1,12 +1,15 @@
 <mat-toolbar color="primary">
   <span>
-    <a routerLink="/">Couch Potato</a>
+    <a routerLink="/" routerLinkActive="on" [routerLinkActiveOptions]="{exact: true }">Couch Potato</a>
   </span>
-  <span class="spacer"></span>
-  <ul>
-    <li>
-      <a mat-button routerLink="/create" routerLinkActive="mat-accent"> New Media </a>
-    </li>
-  </ul>
-
+  <span>
+    <a mat-button routerLink="/popular/movies" routerLinkActive="on"> Most Popular Movies</a>
+  </span>
+  <span>
+    <a mat-button routerLink="/popular/shows" routerLinkActive="on"> Most Popular Shows</a>
+  </span>
+  <span class="spacer-fill"></span>
+  <span>
+    <a mat-button routerLink="/create" routerLinkActive="on"> New Media </a>
+  </span>
 </mat-toolbar>

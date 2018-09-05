@@ -1,0 +1,30 @@
+<app-search-bar></app-search-bar>
+<hr>
+<div class="container">
+  <div class="row">
+      <h3>Most Popular Shows</h3>
+      <ul class="list-group">
+        <li class="list-group-item" *ngFor="let show of tvShowList">
+          <div class="float-lg-right float-md-right">
+            <button class="btn btn-success">
+              <span class="ion ion-md-add"></span> To List
+            </button>
+          </div>
+          <div class="row">
+              <div class="col-lg-4 col-md-4">
+                <img src={{baseImagePath}}{{show.imagePath}}/>
+              </div>
+              <div class="col-lg-7 col-md-7 text-center">
+                <h4>
+                  {{show.title}}
+                </h4>
+                  First Aired On: {{show.releaseDate}}
+              </div>
+            </div>
+            <div class="row">
+              <b>Summary: </b>{{show.description}}
+            </div>
+        </li>
+      </ul>
+  </div>
+</div>

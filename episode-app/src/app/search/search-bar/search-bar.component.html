@@ -1,9 +1,11 @@
-<div class="spacing"></div>
-<div class="row">
-  <div class="mx-auto input-group search-input">
-      <input matInput class="form-control" #searchQuery type="text" placeholder="Search..." />
-    <button class="btn btn-secondary" (click)="onSearchPressed(searchQuery.value)">
+<form class="spacing" [formGroup]="form" (submit)='onSearchPressed(searchQuery)'>
+  <div class="search-center">
+    <mat-form-field class="mx-auto search-input">
+      <input matInput #searchQuery type="text" formControlName="searchQuery" placeholder="Search all by title...">
+      <mat-error *ngIf="form.get('searchQuery').invalid">Please enter a valid search.</mat-error>
+    </mat-form-field>
+    <button class="btn btn-secondary" (click)="onSearchPressed(searchQuery.value)" type="submit">
       <span class="ion ion-md-search"></span>
     </button>
   </div>
-</div>
+</form>
