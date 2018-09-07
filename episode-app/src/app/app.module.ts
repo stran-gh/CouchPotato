@@ -9,6 +9,7 @@ import { MatButtonModule,
          MatToolbarModule,
          MatExpansionModule,
          MatProgressSpinnerModule,
+         MatPaginatorModule,
          MatSelectModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
@@ -54,6 +55,7 @@ import { MostPopularMovieComponent } from './most-popular-movie/most-popular-mov
     MatExpansionModule,
     MatSelectModule,
     MatProgressSpinnerModule,
+    MatPaginatorModule,
     HttpClientModule
   ],
   providers: [

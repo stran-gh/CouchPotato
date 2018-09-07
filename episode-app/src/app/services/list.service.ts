@@ -8,16 +8,17 @@ import { Router } from '@angular/router';
 @Injectable({ providedIn: 'root' })
 export class ListService {
   private movies: Movie[] = [];
-  private moviesUpdated = new Subject<Movie[]>();
+  private moviesUpdated = new Subject<{movies: Movie[], itemCount: number}>();
 
   constructor(private http: HttpClient, private router: Router) {}
 
-  getMovies() {
+  getMovies(itemsPerPage: number, currentPage: number) {
+    const queryParams = `?pagesize=${itemsPerPage}&page=${currentPage}`;
     this.http
-      .get<{ message: string; movies: any }>('http://localhost:3000/api/movies')
+      .get<{ message: string; movies: any, maxItems: number }>('http://localhost:3000/api/movies' + queryParams)
       .pipe(
         map(postData => {
-          return postData.movies.map(movie => {
+          return { movies: postData.movies.map(movie => {
             return {
               id: movie._id,
               title: movie.title,
@@ -25,12 +26,13 @@ export class ListService {
               type: movie.type,
               imagePath: movie.imagePath
             };
-          });
+          }), maxItems: postData.maxItems
+        };
         })
       )
       .subscribe(transformedMovies => {
-        this.movies = transformedMovies;
-        this.moviesUpdated.next([...this.movies]);
+        this.movies = transformedMovies.movies;
+        this.moviesUpdated.next({movies: [...this.movies], itemCount: transformedMovies.maxItems});
       });
   }
 
@@ -51,15 +53,6 @@ export class ListService {
       movieData
     )
     .subscribe(responseData => {
-      const movie: Movie = {
-        id: responseData.movie.id,
-        title: title,
-        description: description,
-        type: type,
-        imagePath: responseData.movie.imagePath
-      };
-      this.movies.push(movie);
-      this.moviesUpdated.next([...this.movies]);
       this.router.navigate(['/']);
     });
   }
@@ -90,30 +83,13 @@ export class ListService {
     this.http
       .put('http://localhost:3000/api/movies/' + id, movieData)
       .subscribe(response => {
-        const updatedMovies = [...this.movies];
-        const oldMovieIndex = updatedMovies.findIndex(m => m.id === id);
-        const movie: Movie = {
-          id: id,
-          title: title,
-          description: description,
-          type: type,
-          imagePath: null
-        };
-        updatedMovies[oldMovieIndex] = movie;
-        this.movies = updatedMovies;
-        this.moviesUpdated.next([...this.movies]);
         this.router.navigate(['/']);
       });
   }
 
   deleteMovie(movieId: string) {
-    this.http
+    return this.http
       .delete('http://localhost:3000/api/movies/' + movieId)
-      .subscribe(() => {
-        const updatedMovies = this.movies.filter(post => post.id !== movieId);
-        this.movies = updatedMovies;
-        this.moviesUpdated.next([...this.movies]);
-      });
   }
 
   getMovie(id: string) {

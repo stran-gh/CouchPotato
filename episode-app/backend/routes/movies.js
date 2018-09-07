@@ -76,11 +76,25 @@ router.get('/:id', (req, res, next) => {
 })
 
 router.get('', (req, res, next) => {
-  Movie.find()
+  const pageSize = +req.query.pagesize;
+  const currentPage = +req.query.page;
+  const movieQuery = Movie.find();
+  let fetchedMovies;
+  if (pageSize && currentPage) {
+    movieQuery
+      .skip(pageSize * (currentPage - 1))
+      .limit(pageSize);
+  }
+  movieQuery
     .then(documents => {
+      fetchedMovies = documents;
+      return Movie.estimatedDocumentCount();
+    })
+    .then(count => {
       res.status(200).json({
         message: 'Posts fetched successfully',
-        movies: documents
+        movies: fetchedMovies,
+        maxItems: count
       });
     });
 });
