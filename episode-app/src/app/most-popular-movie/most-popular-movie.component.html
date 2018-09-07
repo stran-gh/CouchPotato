@@ -4,6 +4,7 @@
   <div class="row">
     <div class="col-md col-lg">
       <h3>Most Popular Movies</h3>
+      <mat-spinner *ngIf="isLoading"></mat-spinner>
       <ul class="list-group">
         <li class="list-group-item" *ngFor="let movie of movieList">
           <div class="float-lg-right float-md-right">

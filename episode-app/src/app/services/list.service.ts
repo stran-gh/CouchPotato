@@ -89,7 +89,7 @@ export class ListService {
 
   deleteMovie(movieId: string) {
     return this.http
-      .delete('http://localhost:3000/api/movies/' + movieId)
+      .delete('http://localhost:3000/api/movies/' + movieId);
   }
 
   getMovie(id: string) {

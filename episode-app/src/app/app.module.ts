@@ -13,7 +13,6 @@ import { MatButtonModule,
          MatSelectModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
-import { MovieItemComponent } from './movie/movie-item/movie-item.component';
 import { SearchBarComponent } from './search/search-bar/search-bar.component';
 import { MovieListComponent } from './movie/movie-list/movie-list.component';
 import { TvSeriesListComponent } from './tv-series/tv-series-list/tv-series-list.component';
@@ -21,7 +20,6 @@ import { TvSeriesItemComponent } from './tv-series/tv-series-item/tv-series-item
 import { HeaderComponent } from './header/header.component';
 import { MovieItemCreateComponent } from './movie/movie-item-create/movie-item-create.component';
 import { AppRoutingModule } from './app-routing.module';
-import { MostPopularComponent } from './most-popular/most-popular.component';
 import { TMBDatabaseService } from './services/tMBDatabase.service';
 import { ServiceConstants } from './constants/serviceConstants';
 import { SearchResultsComponent } from './search/search-results/search-results.component';
@@ -31,14 +29,12 @@ import { MostPopularMovieComponent } from './most-popular-movie/most-popular-mov
 @NgModule({
   declarations: [
     AppComponent,
-    MovieItemComponent,
     SearchBarComponent,
     MovieListComponent,
     TvSeriesItemComponent,
     TvSeriesListComponent,
     HeaderComponent,
     MovieItemCreateComponent,
-    MostPopularComponent,
     SearchResultsComponent,
     MostPopularShowComponent,
     MostPopularMovieComponent
