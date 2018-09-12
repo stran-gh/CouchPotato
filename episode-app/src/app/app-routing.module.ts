@@ -6,6 +6,8 @@ import { MovieItemCreateComponent } from './movie/movie-item-create/movie-item-c
 import { SearchResultsComponent } from './search/search-results/search-results.component';
 import { MostPopularShowComponent } from './most-popular-show/most-popular-show.component';
 import { MostPopularMovieComponent } from './most-popular-movie/most-popular-movie.component';
+import { LoginComponent } from './auth/login/login.component';
+import { SignupComponent } from './auth/signup/signup.component';
 
 const routes: Routes = [
   { path: '', component: MovieListComponent },
@@ -13,7 +15,9 @@ const routes: Routes = [
   { path: 'edit/:movieId', component: MovieItemCreateComponent },
   { path: 'popular/movies', component: MostPopularMovieComponent },
   { path: 'popular/shows', component: MostPopularShowComponent },
-  { path: 'search', component: SearchResultsComponent }
+  { path: 'search', component: SearchResultsComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'signup', component: SignupComponent }
 ];
 
 @NgModule({

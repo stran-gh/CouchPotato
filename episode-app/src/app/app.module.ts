@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { MatButtonModule,
          MatInputModule,
@@ -25,6 +25,8 @@ import { ServiceConstants } from './constants/serviceConstants';
 import { SearchResultsComponent } from './search/search-results/search-results.component';
 import { MostPopularShowComponent } from './most-popular-show/most-popular-show.component';
 import { MostPopularMovieComponent } from './most-popular-movie/most-popular-movie.component';
+import { LoginComponent } from './auth/login/login.component';
+import { SignupComponent } from './auth/signup/signup.component';
 
 @NgModule({
   declarations: [
@@ -37,13 +39,16 @@ import { MostPopularMovieComponent } from './most-popular-movie/most-popular-mov
     MovieItemCreateComponent,
     SearchResultsComponent,
     MostPopularShowComponent,
-    MostPopularMovieComponent
+    MostPopularMovieComponent,
+    LoginComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
+    FormsModule,
     MatButtonModule,
     MatInputModule,
     MatCardModule,
