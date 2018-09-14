@@ -4,11 +4,13 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
 const moviesRoutes = require('./routes/movies');
+const userRoutes = require('./routes/user');
+
 
 const app = express();
 
 // cd desktop/mongodb/bin and run
-const connectionString = "mongodb+srv://steve:EMDrKmbPBRrXZdoa@cluster0-nmedl.mongodb.net/node-angular?retryWrites=true";
+const connectionString = "mongodb+srv://steve:EMDrKmbPBRrXZdoa@cluster0-nmedl.mongodb.net/node-angular";
 
 mongoose.connect(connectionString, { useNewUrlParser: true})
   .then(() => {
@@ -36,5 +38,6 @@ app.use((req, res, next) => {
 });
 
 app.use('/api/movies', moviesRoutes);
+app.use('/api/user', userRoutes);
 
 module.exports = app;
