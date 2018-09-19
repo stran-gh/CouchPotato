@@ -9,13 +9,16 @@
     <a mat-button routerLink="/popular/shows" routerLinkActive="on"> Most Popular Shows</a>
   </span>
   <span class="spacer-fill"></span>
-  <span>
+  <span *ngIf="!isUserAuthenticated">
     <a mat-button routerLink="/login" routerLinkActive="on"> Login </a>
   </span>
-  <span>
+  <span *ngIf="!isUserAuthenticated">
       <a mat-button routerLink="/signup" routerLinkActive="on"> Signup </a>
     </span>
-  <span>
+  <span *ngIf="isUserAuthenticated">
     <a mat-button routerLink="/create" routerLinkActive="on"> New Media </a>
+  </span>
+  <span *ngIf="isUserAuthenticated">
+    <button mat-button (click)="onLogout()">Logout</button>
   </span>
 </mat-toolbar>
