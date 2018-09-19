@@ -3,7 +3,7 @@ import { Subscription } from 'rxjs';
 
 import { Movie } from '../movie.model';
 import { ListService } from '../../services/list.service';
-import { PageEvent } from '../../../../node_modules/@angular/material';
+import { PageEvent } from '@angular/material';
 
 @Component({
   selector: 'app-movie-list',

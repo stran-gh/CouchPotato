@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MatButtonModule,
          MatInputModule,
          MatCardModule,
@@ -27,6 +27,7 @@ import { MostPopularShowComponent } from './most-popular-show/most-popular-show.
 import { MostPopularMovieComponent } from './most-popular-movie/most-popular-movie.component';
 import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
+import { AuthInterceptor } from './services/auth-interceptor';
 
 @NgModule({
   declarations: [
@@ -62,7 +63,8 @@ import { SignupComponent } from './auth/signup/signup.component';
   providers: [
     TMBDatabaseService,
     HttpClient,
-    ServiceConstants
+    ServiceConstants,
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })

@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { DatabaseResponse } from '../interfaces/tMBHttp.interface';
 import { ServiceConstants } from '../constants/serviceConstants';
-import { Subject } from '../../../node_modules/rxjs';
+import { Subject } from 'rxjs';
 import { DBMovie } from '../models/dbMovie.model';
 import { DBShow } from '../models/dbShow.model';
 

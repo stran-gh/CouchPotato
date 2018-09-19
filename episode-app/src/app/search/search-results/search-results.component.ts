@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { TMBDatabaseService } from '../../services/tMBDatabase.service';
-import { Subscription } from '../../../../node_modules/rxjs';
+import { Subscription } from 'rxjs';
 import { SearchService } from '../../services/search.service';
 import { Movie } from '../../movie/movie.model';
 import { DBMovie } from '../../models/dbMovie.model';

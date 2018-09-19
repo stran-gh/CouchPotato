@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TMBDatabaseService } from '../services/tMBDatabase.service';
-import { Subscription } from '../../../node_modules/rxjs';
+import { Subscription } from 'rxjs';
 import { DBShow } from '../models/dbShow.model';
 
 @Component({
