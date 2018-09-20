@@ -14,7 +14,8 @@
           </div>
           <div class="row">
             <div class="col-lg col-md">
-              <img src={{baseImagePath}}{{movie.imagePath}}/>
+              <b *ngIf="!movie.imagePath"> No image can currently be displayed. </b>
+              <img *ngIf="movie.imagePath" src={{baseImagePath}}{{movie.imagePath}}/>
             </div>
             <div class="col-lg col-md">
               <h4 class="mx-auto">

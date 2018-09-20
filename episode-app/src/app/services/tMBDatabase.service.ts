@@ -14,8 +14,6 @@ export class TMBDatabaseService {
     private serviceConstants: ServiceConstants
   ) {}
 
-  private popularTVShows: DBShow[] = [];
-  private popularMovies: DBMovie[] = [];
   private popularTVShowsUpdated = new Subject();
   private popularMoviesUpdated = new Subject();
   private movieSearchResult: DBMovie[] = [];
@@ -93,8 +91,9 @@ export class TMBDatabaseService {
         'https://api.themoviedb.org/3/movie/popular?api_key=256776cc4140ac376c95ea83c0992ea2&language=en-US&page=1'
       )
       .subscribe(fullListData => {
+        const popularMovies = [];
         for (let i = 0; i < this.serviceConstants.TOTAL_NUM_DISPLAY; i++) {
-          this.popularMovies.push({
+          popularMovies.push({
             id: fullListData.results[i].id,
             title: fullListData.results[i].title,
             description: fullListData.results[i].overview,
@@ -103,7 +102,7 @@ export class TMBDatabaseService {
             releaseDate: fullListData.results[i].release_date
           });
         }
-        this.popularMoviesUpdated.next([...this.popularMovies]);
+        this.popularMoviesUpdated.next([...popularMovies]);
       });
   }
 
@@ -117,8 +116,9 @@ export class TMBDatabaseService {
         'https://api.themoviedb.org/3/tv/popular?api_key=256776cc4140ac376c95ea83c0992ea2&language=en-US&page=1'
       )
       .subscribe(fullListData => {
+        const popularTVShows = [];
         for (let i = 0; i < this.serviceConstants.TOTAL_NUM_DISPLAY; i++) {
-          this.popularTVShows.push({
+          popularTVShows.push({
             id: fullListData.results[i].id,
             title: fullListData.results[i].name,
             description: fullListData.results[i].overview,
@@ -126,7 +126,7 @@ export class TMBDatabaseService {
             imagePath: fullListData.results[i].backdrop_path
           });
         }
-        this.popularTVShowsUpdated.next([...this.popularTVShows]);
+        this.popularTVShowsUpdated.next([...popularTVShows]);
       });
   }
 
