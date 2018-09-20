@@ -8,11 +8,12 @@ import { MostPopularShowComponent } from './most-popular-show/most-popular-show.
 import { MostPopularMovieComponent } from './most-popular-movie/most-popular-movie.component';
 import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
+import { AuthGuard } from './services/auth-services/auth.guard';
 
 const routes: Routes = [
   { path: '', component: MovieListComponent },
-  { path: 'create', component: MovieItemCreateComponent },
-  { path: 'edit/:movieId', component: MovieItemCreateComponent },
+  { path: 'create', component: MovieItemCreateComponent, canActivate: [AuthGuard] },
+  { path: 'edit/:movieId', component: MovieItemCreateComponent, canActivate: [AuthGuard] },
   { path: 'popular/movies', component: MostPopularMovieComponent },
   { path: 'popular/shows', component: MostPopularShowComponent },
   { path: 'search', component: SearchResultsComponent },
@@ -22,7 +23,8 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [AuthGuard]
 })
 export class AppRoutingModule {
 

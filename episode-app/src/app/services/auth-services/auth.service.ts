@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { AuthData } from '../models/auth-data.model';
-import { Subject } from '../../../node_modules/rxjs';
-import { Router } from '../../../node_modules/@angular/router';
+import { AuthData } from '../../models/auth-data.model';
+import { Subject } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Injectable({ providedIn: 'root'})
 export class AuthService {
@@ -45,7 +45,7 @@ export class AuthService {
     this.token = null;
     this.isAuthenticated = false;
     this.authStatusListener.next(false);
-    this.router.navigate(['/'])
+    this.router.navigate(['/']);
   }
 
   getToken() {

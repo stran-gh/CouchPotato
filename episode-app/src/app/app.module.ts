@@ -27,7 +27,7 @@ import { MostPopularShowComponent } from './most-popular-show/most-popular-show.
 import { MostPopularMovieComponent } from './most-popular-movie/most-popular-movie.component';
 import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
-import { AuthInterceptor } from './services/auth-interceptor';
+import { AuthInterceptor } from './services/auth-services/auth-interceptor';
 
 @NgModule({
   declarations: [
